@@ -3,11 +3,13 @@ body {
 }
 
 h1{
+    text-align: center;
     color: white;
     font-size: 2.5em;
 }
 h3{
     color: white;
+    margin-left: 20px;
     font-size: 1.5em;
 }
 
@@ -47,9 +49,12 @@ td {
 }
 
 form {
-    margin-left: 500px;
+    /* margin-left: 500px; */
+    margin-left: 40px;
     margin-bottom: 20px;
     padding: 10px;
+    padding-left: 18px;
+    padding-bottom: 18px;
     height: 20px;
     width: 300px;
     background-color: rgb(255, 255, 255);
