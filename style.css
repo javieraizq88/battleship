@@ -21,11 +21,12 @@ div#board {
     background: url("img/board.jpg") no-repeat;
 }
 
-div#MessageArea {
+div#messageArea {
     position: absolute;
     top: 0px;
     left: 0px;
     color: rgb(51, 204, 51);
+    font-size: 2em;
 }
 
 .hit {
