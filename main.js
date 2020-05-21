@@ -12,7 +12,7 @@ var model = {
     ],
 
     fire: function (guess) {
-        for (var i = 0; i < this.numShips; i++) {  
+        for (let i = 0; i < this.numShips; i++) {  
             var ship = this.ships[i]; 
             var index = ship.locations.indexOf(guess); 
 
@@ -49,7 +49,7 @@ var model = {
     generateShipLocations: function () {
         var locations;
 
-        for (var i = 0; i < this.numShips; i++) {
+        for (let i = 0; i < this.numShips; i++) {
             do {
                 locations = this.generateShip();
             } while (this.collision(locations));
@@ -72,7 +72,7 @@ var model = {
         }
 
         var newShipLocations = [];
-        for (var i = 0; i < this.shipLength; i++) {
+        for (let i = 0; i < this.shipLength; i++) {
             if (direction === 1) { 
                 newShipLocations.push(row + "" + (col + i)); 
             } else {
@@ -83,9 +83,9 @@ var model = {
     },
 
     collision: function (locations) {
-        for (var i = 0; i < this.numShips; i++) {
+        for (let i = 0; i < this.numShips; i++) {
             var ship = this.ships[i];
-            for (var j = 0; j < locations.length; j++) {
+            for (let j = 0; j < locations.length; j++) {
                 if (ship.locations.indexOf(locations[j]) >= 0) { 
                     return true;
                 }
