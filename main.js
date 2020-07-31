@@ -1,3 +1,6 @@
+// Codigo para jugar battleship
+
+
 var model = {
     boardSize: 7, 
     numShips: 4, 
@@ -9,13 +12,20 @@ var model = {
         { locations: [0, 0, 0], hits: ["", "", ""] },
         { locations: [0, 0, 0], hits: ["", "", ""] },
         { locations: [0, 0, 0], hits: ["", "", ""] },
-    ],
+    ], //  la posición de cada barco se pone 0 y sin disparos para que los ubique randoom segun la fx location
+
+
 
     fire: function (guess) {
+     // fx de disparos HIT cuando el disparo le da a algun barco segun la posición por la fx location 
+     // Opción que no deja disparar dos veces a la misma posición
+     // fx para MISS cuando las coordenadas ingresadas no hay ningun barco
+     
         for (let i = 0; i < this.numShips; i++) {  
             var ship = this.ships[i]; 
             var index = ship.locations.indexOf(guess); 
 
+     // cuando ya se dispararon las 3 posiciones del barco
             if (ship.hits[index] === "hit") { 
                 view.displayMessage("You already hit this location"); 
                 return true;
@@ -38,6 +48,8 @@ var model = {
     },
 
     isSunk: function(ship) { 
+     // cuando el barco le han disparado 3 veces segun las 3 coordenadas return true y se hunde
+      
         for (let index = 0; index < this.shipLength; index++)  { 
             if (ship.hits[index] !== "hit") { 
                 return false;
@@ -47,6 +59,8 @@ var model = {
     },
 
     generateShipLocations: function () {
+      // fx para generar posiciones de los barcos
+       
         var locations;
 
         for (let i = 0; i < this.numShips; i++) {
@@ -55,11 +69,15 @@ var model = {
             } while (this.collision(locations));
             this.ships[i].locations = locations;
         }
+        
+      // muesta en console las coordenadas de las posiciones de los barcos
         console.log("ships array is in: "); 
         console.log(this.ships);
     },
 
     generateShip: function () {
+     // fx para crear barcos y ponerlos de manera aleatoria en el tablero 
+     
         var direction = Math.floor(Math.random() * 2); 
         var row, col;
 
@@ -83,6 +101,9 @@ var model = {
     },
 
     collision: function (locations) {
+      //fx para evitar que dos barcos esten en la misma posicion. 
+      // Si la posicion del barco en j es >= 0, significa q no hay 2 barcos en el mismo casillero 
+      
         for (let i = 0; i < this.numShips; i++) {
             var ship = this.ships[i];
             for (let j = 0; j < locations.length; j++) {
@@ -103,11 +124,13 @@ var view = {
     },
 
     displayHit: function (location) {
+     // llama la clase hit de CSS 
         var cell = document.getElementById(location);
         cell.setAttribute("class", "hit"); 
     },
 
     displayMiss: function (location) {
+     // llama la clase miss de CSS 
         var cell = document.getElementById(location);
         cell.setAttribute("class", "miss"); 
     }
@@ -117,6 +140,8 @@ var controller = {
     guesses: 0,
 
     processGuess: function (guess) {
+// fx que cuenta los disparos
+// Si el el n° de barcos hundidos es = al n° de barcos, manda el msg
         var location = parseGuess(guess);
         if (location) {
             this.guesses++; 
@@ -130,6 +155,8 @@ var controller = {
 };
 
 function parseGuess(guess) {
+  // validacion del input
+  
     var alphabet = ["A", "B", "C", "D", "E", "F", "G"];
 
     if (guess === null || guess.length !== 2) { 
@@ -151,6 +178,7 @@ function parseGuess(guess) {
 };
 
 function handleFireButton() {
+  // codigo de posicion del input
     var guessInput = document.getElementById("guessInput");
     var guess = guessInput.value.toUpperCase(); 
 
@@ -160,6 +188,7 @@ function handleFireButton() {
 }
 
 function handleKeyPress(e) {
+ // activacion del boton fire por Enter o al hacer click
     var fireButton = document.getElementById("fireButton");
 
     e = e || window.event; 
@@ -170,8 +199,7 @@ function handleKeyPress(e) {
     }
 };
 
-
-window.onload = init;
+window.onload = init;  // se reinicia el juego al actualizar la pagina
 
 function init() {
     var fireButton = document.getElementById("fireButton");
@@ -181,4 +209,4 @@ function init() {
     guessInput.onkeypress = handleKeyPress;
 
     model.generateShipLocations();
-};
+}

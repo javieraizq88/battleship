@@ -16,7 +16,7 @@ var model = {
 
 # fx de disparos HIT y MISS
     fire: function (guess) {
-        for (var i = 0; i < this.numShips; i++) {  //cuenta los disparos 
+        for (let i = 0; i < this.numShips; i++) {  //cuenta los disparos 
             var ship = this.ships[i]; // cuantos barcos les han disparado
             var index = ship.locations.indexOf(guess); 
 
@@ -51,11 +51,11 @@ var model = {
         return true;
     },
 
-# fx generar posiciones de los barcos
+# fx para generar posiciones de los barcos e impide que dos o más barcos estén superpuestos 
     generateShipLocations: function () {
         var locations;
 
-        for (var i = 0; i < this.numShips; i++) {
+        for (let i = 0; i < this.numShips; i++) {
             do {
                 locations = this.generateShip();
             } while (this.collision(locations));
@@ -79,7 +79,7 @@ var model = {
         }
 
         var newShipLocations = [];
-        for (var i = 0; i < this.shipLength; i++) {
+        for (let i = 0; i < this.shipLength; i++) {
             if (direction === 1) { 
                 newShipLocations.push(row + "" + (col + i)); // si la posicion del barco va a ser horizontal, primero va a ser el row 
             } else {
@@ -91,9 +91,9 @@ var model = {
 
 # fx para evitar que dos bardos esten en la misma posicion. Si la posicion del barco en j es >= 0, significa q no hay 2 barcos en el mismo casillero 
     collision: function (locations) {
-        for (var i = 0; i < this.numShips; i++) {
+        for (let i = 0; i < this.numShips; i++) {
             var ship = this.ships[i];
-            for (var j = 0; j < locations.length; j++) {
+            for (let j = 0; j < locations.length; j++) {
                 if (ship.locations.indexOf(locations[j]) >= 0) { 
                     return true;
                 }
